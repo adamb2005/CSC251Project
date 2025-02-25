@@ -1,0 +1,31 @@
+public class Policy {
+    private static int policyCount = 0;
+    private int policyNumber;
+    private String providerName;
+    private PolicyHolder policyHolder;
+
+    public Policy(int policyNumber, String providerName, PolicyHolder policyHolder) {
+        this.policyNumber = policyNumber;
+        this.providerName = providerName;
+        this.policyHolder = policyHolder;
+        policyCount++;
+    }
+
+    public double calculatePolicyPrice() {
+        double basePrice = 600;
+        if (policyHolder.isSmoker()) basePrice += 100;
+        if (policyHolder.calculateBMI() > 35) basePrice += 200;
+        return basePrice;
+    }
+
+    public String toString() {
+        return "Policy Number: " + policyNumber + "\n" +
+               "Provider Name: " + providerName + "\n" +
+               policyHolder.toString() + "\n" +
+               "Policy Price: $" + String.format("%.2f", calculatePolicyPrice());
+    }
+
+    public static int getPolicyCount() {
+        return policyCount;
+    }
+}
